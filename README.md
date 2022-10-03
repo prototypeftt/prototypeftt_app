@@ -1,2 +1,2 @@
 # prototypeftt_app
-android app
+android app mock-up
