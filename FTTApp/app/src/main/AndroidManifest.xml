@@ -12,6 +12,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FTTApp"
         tools:targetApi="31">
+        <activity android:name=".AssetScreen"></activity>
+        <activity android:name=".AssetsScreen"></activity>
+        <activity android:name=".BrokerPersonalScreen"></activity>
+        <activity android:name=".BrokerScreen"></activity>
+        <activity android:name=".BrokersScreen"></activity>
+        <activity android:name=".BuyAssetScreen"></activity>
+        <activity android:name=".ChatbotScreen"></activity>
+        <activity android:name=".ContactBrokerScreen"></activity>
+        <activity android:name=".MainScreen"></activity>
+        <activity android:name=".PaymentTypeScreen"></activity>
+        <activity android:name=".PortfolioScreen"></activity>
+        <activity android:name=".RegisterScreen"></activity>
+        <activity android:name=".ReviewScreen"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">
