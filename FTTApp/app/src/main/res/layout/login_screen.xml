@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#8000BCD4"
-    tools:context=".MainActivity">
+    tools:context=".LoginScreen">
 
     <EditText
         android:id="@+id/Username"
@@ -19,7 +19,7 @@
         android:layout_marginBottom="32dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Username"
+        android:text="Email@example.com"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

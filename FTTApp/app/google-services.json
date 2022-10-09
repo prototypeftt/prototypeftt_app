@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "860306654067",
+    "firebase_url": "https://prototypeftt-cca12-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "prototypeftt-cca12",
+    "storage_bucket": "prototypeftt-cca12.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860306654067:android:85b85e4520a3adc9d2fb06",
+        "android_client_info": {
+          "package_name": "com.example.fttapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "860306654067-uhsl698ougc8te36ksrkk2akid5p4idc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEXpXE9hOAjqAhik4V52QjfnR2vevwiEE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "860306654067-uhsl698ougc8te36ksrkk2akid5p4idc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
