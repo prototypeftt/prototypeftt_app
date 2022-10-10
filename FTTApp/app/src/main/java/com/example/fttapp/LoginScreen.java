@@ -1,6 +1,9 @@
 package com.example.fttapp;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,6 +14,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -21,6 +29,8 @@ public class LoginScreen extends AppCompatActivity {
     private EditText EditLoginEmail, EditLoginPassword;
 
     FirebaseAuth mAuth;
+    GoogleSignInOptions gso;
+    GoogleSignInClient gsc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,23 +41,34 @@ public class LoginScreen extends AppCompatActivity {
         EditLoginPassword = findViewById(R.id.Password);
 
         mAuth = FirebaseAuth.getInstance();
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        gsc = GoogleSignIn.getClient(this,gso);
+
         changeActivity();
     }
 
     private void changeActivity(){
         Button LogInButton = (Button) findViewById(R.id.LogInButton);
         Button ToRegisterButton = (Button) findViewById(R.id.ToRegisterButton);
+        Button GoogleLogin = (Button) findViewById(R.id.GoogleLogButton);
         LogInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 loginUser();
-                //startActivity(new Intent(LoginScreen.this, MainActivity.class));
             }
         });
         ToRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LoginScreen.this, RegisterScreen.class));
+            }
+        });
+        GoogleLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signIn();
             }
         });
     }
@@ -81,5 +102,29 @@ public class LoginScreen extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private void signIn(){
+        Intent intent = gsc.getSignInIntent();
+        startActivityForResult(intent, 1000);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 1000){
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try{
+                task.getResult(ApiException.class);
+                HomeActivity();
+            } catch(ApiException e){
+                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void HomeActivity() {
+        startActivity(new Intent(LoginScreen.this, MainActivity.class));
     }
 }
