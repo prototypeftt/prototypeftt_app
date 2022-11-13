@@ -4,8 +4,6 @@ import androidx.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
@@ -15,27 +13,54 @@ import java.util.List;
 public class FirebaseDatabaseHelper {
     private Query mReference;
     private List<Broker> brokers = new ArrayList<>();
+    private List<Asset> assets = new ArrayList<>();
 
-    public interface DataStatus{
-        void DataIsLoaded(List<Broker> brokers, List<String> keys);
+    public interface DataStatusBrokers {
+        void DataIsLoaded(List<Broker> brokers, List<String> brokerKeys);
+    }
+
+    public interface DataStatusAssets {
+        void DataIsLoaded(List<Asset> assets, List<String> assetKeys);
     }
 
     public FirebaseDatabaseHelper(Query mReference){
         this.mReference = mReference;
     }
 
-    public void readBrokers(final DataStatus dataStatus){
+    public void readBrokers(final DataStatusBrokers dataStatus){
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 brokers.clear();
-                List<String> keys = new ArrayList<>();
+                List<String> brokerKeys = new ArrayList<>();
                 for(DataSnapshot keyNode:snapshot.getChildren()){
-                    keys.add(keyNode.getKey());
+                    brokerKeys.add(keyNode.getKey());
                     Broker broker = keyNode.getValue(Broker.class);
+                    broker.setUid(keyNode.getKey());
                     brokers.add(broker);
                 }
-                dataStatus.DataIsLoaded(brokers, keys);
+                dataStatus.DataIsLoaded(brokers, brokerKeys);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void readAssets(final DataStatusAssets dataStatus){
+        mReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                assets.clear();
+                List<String> assetKeys = new ArrayList<>();
+                for(DataSnapshot keyNode:snapshot.getChildren()){
+                    assetKeys.add(keyNode.getKey());
+                    Asset asset = keyNode.getValue(Asset.class);
+                    assets.add(asset);
+                }
+                dataStatus.DataIsLoaded(assets, assetKeys);
             }
 
             @Override

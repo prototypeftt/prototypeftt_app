@@ -7,28 +7,49 @@
     android:background="#8000BCD4"
     tools:context=".BrokerScreen">
 
-    <ImageView
-        android:id="@+id/AssetGraphic"
-        android:layout_width="345dp"
-        android:layout_height="286dp"
+    <TextView
+        android:id="@+id/brokerNameTextview"
+        android:layout_width="0dp"
+        android:layout_height="49dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:layout_marginBottom="16dp"
-        android:contentDescription="@string/image_of_a_graphic"
+        android:background="#03A9F4"
+        android:gravity="center"
+        android:text="Broker name"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.097"
-        app:srcCompat="@drawable/graphic"
-        tools:srcCompat="@drawable/graphic" />
+        app:layout_constraintVertical_bias="0.235" />
+
+    <TextView
+        android:id="@+id/brokerFeeTextview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="#03A9F4"
+        android:gravity="center"
+        android:text="Broker fee"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/brokerFeeTextviewAbs"
+        app:layout_constraintTop_toBottomOf="@+id/institutionTextview"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/ContactBroker"
+        android:id="@+id/contactBrokerButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -42,31 +63,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/BrokerInfoButton"
-        app:layout_constraintVertical_bias="0.009" />
-
-    <Button
-        android:id="@+id/BrokerInfoButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginBottom="32dp"
-        android:text="Broker info"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/BrokerName"
-        app:layout_constraintVertical_bias="0.01" />
+        app:layout_constraintTop_toBottomOf="@+id/brokerFeeTextviewAbs"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/BrokerName"
+        android:id="@+id/institutionTextview"
         android:layout_width="0dp"
-        android:layout_height="49dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="32dp"
@@ -75,17 +78,17 @@
         android:layout_marginBottom="32dp"
         android:background="#03A9F4"
         android:gravity="center"
-        android:text="Broker name"
+        android:text="Institution name"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AssetGraphic"
-        app:layout_constraintVertical_bias="0.007" />
+        app:layout_constraintStart_toEndOf="@+id/institutionTextviewAbs"
+        app:layout_constraintTop_toBottomOf="@+id/brokerNameTextview"
+        app:layout_constraintVertical_bias="0.005" />
 
     <Button
-        android:id="@+id/BrokerPremium"
+        android:id="@+id/hireBrokerButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -94,13 +97,55 @@
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginBottom="32dp"
-        android:text="Broker Premium"
+        android:text="Hire Broker"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ContactBroker"
-        app:layout_constraintVertical_bias="0.043" />
+        app:layout_constraintTop_toBottomOf="@+id/contactBrokerButton"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/brokerFeeTextviewAbs"
+        android:layout_width="135dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="#03A9F4"
+        android:gravity="center"
+        android:text="Broker fee"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/institutionTextviewAbs"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/institutionTextviewAbs"
+        android:layout_width="135dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="#03A9F4"
+        android:gravity="center"
+        android:text="Institution"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/brokerNameTextview"
+        app:layout_constraintVertical_bias="0.005" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"

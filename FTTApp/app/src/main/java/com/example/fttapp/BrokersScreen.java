@@ -49,7 +49,7 @@ public class BrokersScreen extends AppCompatActivity {
                 selectedInstitution = spinner.getSelectedItem().toString();
                 brokersRef = FirebaseDatabase.getInstance().getReference("brokers").
                         orderByChild("institution").equalTo(selectedInstitution);
-                new FirebaseDatabaseHelper(brokersRef).readBrokers((brokers, keys) -> new RecyclerViewConfig().setConfig(mRecyclerView, BrokersScreen.this, brokers, keys));
+                new FirebaseDatabaseHelper(brokersRef).readBrokers((brokers, keys) -> new RecyclerViewConfig().setConfigBroker(mRecyclerView, BrokersScreen.this, brokers, keys));
             }
 
             @Override
@@ -57,8 +57,6 @@ public class BrokersScreen extends AppCompatActivity {
 
             }
         });
-
-        //changeActivity();
     }
 
     private void ShowData(){
@@ -77,14 +75,4 @@ public class BrokersScreen extends AppCompatActivity {
             }
         });
     }
-
-    /*private void changeActivity(){
-        Button InfoBroker1 = (Button) findViewById(R.id.InfoBroker1Button);
-        InfoBroker1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(BrokersScreen.this, BrokerScreen.class));
-            }
-        });
-    }*/
 }

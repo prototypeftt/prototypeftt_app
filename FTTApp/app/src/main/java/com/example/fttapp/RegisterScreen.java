@@ -15,23 +15,31 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterScreen extends AppCompatActivity {
 
-    private EditText EditPersonalEmail, EditPassword, EditPasswordCheck;
+    private EditText EditFullname, EditPersonalEmail, EditPassword, EditPasswordCheck;
 
+    DatabaseReference clientReference;
     FirebaseAuth mAuth;
+    Client client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_screen);
 
+        EditFullname = findViewById(R.id.fullName);
         EditPersonalEmail = findViewById(R.id.PersonalEmail);
         EditPassword = findViewById(R.id.CreatePassword);
         EditPasswordCheck = findViewById(R.id.PasswordCheck);
 
+        clientReference = FirebaseDatabase.getInstance().getReference("clients");
         mAuth = FirebaseAuth.getInstance();
+
+        client = new Client();
         changeActivity();
     }
 
@@ -46,11 +54,15 @@ public class RegisterScreen extends AppCompatActivity {
     }
 
     private void createUser(){
+        String fullName = EditFullname.getText().toString();
         String email = EditPersonalEmail.getText().toString().trim();
         String password = EditPassword.getText().toString().trim();
         String checkPassword = EditPasswordCheck.getText().toString().trim();
 
-        if(email.isEmpty()){
+        if(fullName.isEmpty()){
+            EditFullname.setError("Fullname is required");
+            EditFullname.requestFocus();
+        }else if(email.isEmpty()){
             EditPersonalEmail.setError("Email is required");
             EditPersonalEmail.requestFocus();
         }else if(password.isEmpty()){
@@ -70,6 +82,9 @@ public class RegisterScreen extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
+                        String userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        client.setName(fullName);
+                        clientReference.child(userUid).setValue(client);
                         Toast.makeText(RegisterScreen.this, "User registered successfully", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(RegisterScreen.this, LoginScreen.class));
                     }else{

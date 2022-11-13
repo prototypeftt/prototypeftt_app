@@ -1,12 +1,14 @@
 package com.example.fttapp;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -14,6 +16,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
         if(user == null & gsc == null){
             startActivity(new Intent(MainActivity.this, LoginScreen.class));
         }
+        /*FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        String userId = firebaseUser.getUid();
+        String userEmail = firebaseUser.getEmail();
+        Toast.makeText(MainActivity.this, userId, Toast.LENGTH_LONG).show();*/
     }
 
     private void changeActivity(){
