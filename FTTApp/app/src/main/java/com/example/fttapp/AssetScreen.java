@@ -5,12 +5,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class AssetScreen extends AppCompatActivity {
 
     private TextView assetName, assetPrice, assetPrediction, assetUpDown;
+    FirebaseAuth mAuth;
+    DatabaseReference mDatabaseC;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +38,25 @@ public class AssetScreen extends AppCompatActivity {
         assetPrediction.setText(asset.getPredictedPrice());
         assetUpDown.setText(asset.getAssetPrediction());
 
-        changeActivity();
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        String userId = firebaseUser.getUid();
+
+        changeActivity(asset, userId);
     }
 
-    private void changeActivity(){
+    private void changeActivity(Asset asset, String userId){
         Button BuyAssetButton = (Button) findViewById(R.id.BuyAssetButton);
         Button SellAssetButton = (Button) findViewById(R.id.SellAssetButton);
-        BuyAssetButton.setOnClickListener(view -> startActivity(new Intent(AssetScreen.this, BuyAssetScreen.class)));
+        asset.setQty("1");
+        BuyAssetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDatabaseC = FirebaseDatabase.getInstance().getReference("clients/" + userId + "/" + asset.getAssetCategory());
+                mDatabaseC.child(asset.getAssetId()).setValue(asset);
+                Toast.makeText(AssetScreen.this, "Asset selected successfully", Toast.LENGTH_LONG).show();
+            }
+        });
         SellAssetButton.setOnClickListener(view -> startActivity(new Intent(AssetScreen.this, BuyAssetScreen.class)));
     }
 }
