@@ -66,7 +66,9 @@ public class BrokerScreen extends AppCompatActivity {
         ContactBroker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(BrokerScreen.this, ContactBrokerScreen.class));
+                Intent intent = new Intent(BrokerScreen.this, ContactBrokerScreen.class);
+                intent.putExtra("broker", broker);
+                startActivity(intent);
             }
         });
         hireBroker.setOnClickListener(new View.OnClickListener() {

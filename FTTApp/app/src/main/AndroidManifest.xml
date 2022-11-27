@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,19 +14,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FTTApp"
         tools:targetApi="31">
-        <activity android:name=".AssetScreen"></activity>
-        <activity android:name=".AssetsScreen"></activity>
-        <activity android:name=".BrokerPersonalScreen"></activity>
-        <activity android:name=".BrokerScreen"></activity>
-        <activity android:name=".BrokersScreen"></activity>
-        <activity android:name=".BuyAssetScreen"></activity>
-        <activity android:name=".ChatbotScreen"></activity>
-        <activity android:name=".ContactBrokerScreen"></activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".PaymentTypeScreen"></activity>
-        <activity android:name=".PortfolioScreen"></activity>
-        <activity android:name=".RegisterScreen"></activity>
-        <activity android:name=".ReviewScreen"></activity>
+        <activity
+            android:name=".ViewMessagesScreen"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity android:name=".AssetScreen" />
+        <activity android:name=".AssetsScreen" />
+        <activity android:name=".BrokerScreen" />
+        <activity android:name=".BrokersScreen" />
+        <activity android:name=".BuyAssetScreen" />
+        <activity android:name=".ChatbotScreen" />
+        <activity android:name=".ContactBrokerScreen" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".PaymentTypeScreen" />
+        <activity android:name=".PortfolioScreen" />
+        <activity android:name=".RegisterScreen" />
+        <activity android:name=".ReviewScreen" />
         <activity
             android:name=".LoginScreen"
             android:exported="true">

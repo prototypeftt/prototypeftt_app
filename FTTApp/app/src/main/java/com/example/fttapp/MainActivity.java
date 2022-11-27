@@ -47,16 +47,13 @@ public class MainActivity extends AppCompatActivity {
         if(user == null & gsc == null){
             startActivity(new Intent(MainActivity.this, LoginScreen.class));
         }
-        /*FirebaseUser firebaseUser = mAuth.getCurrentUser();
-        String userId = firebaseUser.getUid();
-        String userEmail = firebaseUser.getEmail();
-        Toast.makeText(MainActivity.this, userId, Toast.LENGTH_LONG).show();*/
     }
 
     private void changeActivity(){
         Button BrokerSearchButton = (Button) findViewById(R.id.BrokerSearchButton);
         Button AssetSearchButton = (Button) findViewById(R.id.AssetSearchButton);
         Button ViewPortfolioButton = (Button) findViewById(R.id.ViewPortfolioButton);
+        Button ViewMessagesButton = (Button) findViewById(R.id.ViewMessagesButton);
         Button HelpButton = (Button) findViewById(R.id.HelpButton);
         Button RateButton = (Button) findViewById(R.id.RateButton);
         Button LogoutButton = (Button) findViewById(R.id.LogoutButton);
@@ -76,6 +73,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, PortfolioScreen.class));
+            }
+        });
+        ViewMessagesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, ViewMessagesScreen.class));
             }
         });
         HelpButton.setOnClickListener(new View.OnClickListener() {

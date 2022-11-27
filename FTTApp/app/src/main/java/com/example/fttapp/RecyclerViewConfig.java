@@ -17,6 +17,7 @@ public class RecyclerViewConfig {
     private Context mContext;
     private BrokerAdapter mBrokerAdapter;
     private AssetAdapter mAssetAdapter;
+    private MessageAdapter mMessageAdapter;
 
     public void setConfigBroker(RecyclerView recyclerView, Context context, List<Broker> brokers, List<String> brokerKeys){
         mContext = context;
@@ -30,6 +31,13 @@ public class RecyclerViewConfig {
         mAssetAdapter = new AssetAdapter(assets, assetKeys);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(mAssetAdapter);
+    }
+
+    public void setConfigMessage(RecyclerView recyclerView, Context context, List<Message> messages, List<String> messageKeys){
+        mContext = context;
+        mMessageAdapter = new MessageAdapter(messages, messageKeys);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setAdapter(mMessageAdapter);
     }
 
     class BrokerItemView extends RecyclerView.ViewHolder {
@@ -67,7 +75,6 @@ public class RecyclerViewConfig {
             mAssetName = (TextView) itemView.findViewById((R.id.assetName));
             mAssetPrediction = (TextView) itemView.findViewById((R.id.assetPrediction));
             mAssetPrice = (TextView) itemView.findViewById((R.id.assetPrice));
-            parent.setOnClickListener(view -> Toast.makeText(mContext, "This would go", Toast.LENGTH_LONG).show());
         }
 
         public void bind(Asset asset, String key){
@@ -80,6 +87,26 @@ public class RecyclerViewConfig {
                 intent.putExtra("asset", asset);
                 mContext.startActivity(intent);
             });
+        }
+    }
+
+    class MessageItemView extends RecyclerView.ViewHolder {
+        private TextView mMessagerName, mMessagerText;
+
+        private String key;
+
+        public MessageItemView(ViewGroup parent){
+            super(LayoutInflater.from(mContext).
+                    inflate(R.layout.aux_messages_recycler, parent, false));
+
+            mMessagerName = (TextView) itemView.findViewById((R.id.messageSenderName));
+            mMessagerText = (TextView) itemView.findViewById((R.id.messageSenderText));
+        }
+
+        public void bind(Message message, String key){
+            mMessagerName.setText(message.getName());
+            mMessagerText.setText(message.getMessage());
+            this.key = key;
         }
     }
 
@@ -132,6 +159,32 @@ public class RecyclerViewConfig {
         @Override
         public int getItemCount() {
             return assetList.size();
+        }
+    }
+
+    class MessageAdapter extends RecyclerView.Adapter<MessageItemView>{
+        private List<Message> messageList;
+        private List<String> keysList;
+
+        public MessageAdapter(List<Message> messageList, List<String> keysList){
+            this.messageList = messageList;
+            this.keysList = keysList;
+        }
+
+        @NonNull
+        @Override
+        public MessageItemView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new MessageItemView(parent);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull MessageItemView holder, int position) {
+            holder.bind(messageList.get(position), keysList.get(position));
+        }
+
+        @Override
+        public int getItemCount() {
+            return messageList.size();
         }
     }
 }

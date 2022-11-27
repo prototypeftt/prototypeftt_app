@@ -14,6 +14,7 @@ public class FirebaseDatabaseHelper {
     private Query mReference;
     private List<Broker> brokers = new ArrayList<>();
     private List<Asset> assets = new ArrayList<>();
+    private List<Message> messages = new ArrayList<>();
 
     public interface DataStatusBrokers {
         void DataIsLoaded(List<Broker> brokers, List<String> brokerKeys);
@@ -21,6 +22,10 @@ public class FirebaseDatabaseHelper {
 
     public interface DataStatusAssets {
         void DataIsLoaded(List<Asset> assets, List<String> assetKeys);
+    }
+
+    public interface DataStatusMessages {
+        void DataIsLoaded(List<Message> messages, List<String> messageKeys);
     }
 
     public FirebaseDatabaseHelper(Query mReference){
@@ -61,6 +66,27 @@ public class FirebaseDatabaseHelper {
                     assets.add(asset);
                 }
                 dataStatus.DataIsLoaded(assets, assetKeys);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void readMessages(final DataStatusMessages dataStatus){
+        mReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                messages.clear();
+                List<String> messageKeys = new ArrayList<>();
+                for(DataSnapshot keyNode:snapshot.getChildren()){
+                    messageKeys.add(keyNode.getKey());
+                    Message message = keyNode.getValue(Message.class);
+                    messages.add(message);
+                }
+                dataStatus.DataIsLoaded(messages, messageKeys);
             }
 
             @Override

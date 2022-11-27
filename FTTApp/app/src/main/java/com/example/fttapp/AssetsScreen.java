@@ -37,7 +37,7 @@ public class AssetsScreen extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(AssetsScreen.this, android.R.layout.simple_spinner_dropdown_item, spinnerList);
         spinner.setAdapter(adapter);
         spinnerList.add("CRYPTO");
-        spinnerList.add("SHARES");
+        spinnerList.add("STOCK");
         mRecyclerView = findViewById(R.id.recyclerAssets);
         assetRef = FirebaseDatabase.getInstance().getReference("assets");
         ShowData();
