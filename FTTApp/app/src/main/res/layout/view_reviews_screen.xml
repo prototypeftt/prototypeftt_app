@@ -5,10 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#8000BCD4"
-    tools:context=".ContactBrokerScreen">
+    tools:context=".ReviewScreen">
 
-    <EditText
-        android:id="@+id/myMessageText"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerReviews"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AppMarking"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/AppMarking"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -17,22 +34,18 @@
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginBottom="32dp"
-        android:ems="10"
-        android:inputType="textMultiLine|textEmailSubject"
-        android:selectAllOnFocus="false"
-        android:singleLine="false"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas hendrerit eleifend libero at ornare. Aliquam et odio sit amet diam fermentum tempus quis malesuada arcu. Cras posuere finibus fermentum. Cras eget dolor risus. Duis mauris tortor, dictum sed ullamcorper at, efficitur sit amet elit. Vivamus tincidunt varius sodales. Proin in enim eros. In lacinia tellus lacus, non pulvinar diam ornare a."
+        android:text="Our app marks: "
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/appMarkingChange"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.166" />
+        app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/callBrokerButton"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/appMarkingChange"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
@@ -40,31 +53,12 @@
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginBottom="32dp"
-        android:text="Call (only for premiums)"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerReviews"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SendQueryButton"
-        app:layout_constraintVertical_bias="0.034" />
-
-    <Button
-        android:id="@+id/SendQueryButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginBottom="32dp"
-        android:background="#FFFFFF"
-        android:text="Send query"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myMessageText"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

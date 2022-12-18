@@ -26,13 +26,14 @@
         <activity android:name=".BrokerScreen" />
         <activity android:name=".BrokersScreen" />
         <activity android:name=".BuyAssetScreen" />
-        <activity android:name=".ChatbotScreen" />
+        <activity android:name=".HelpScreen" />
         <activity android:name=".ContactBrokerScreen" />
         <activity android:name=".MainActivity" />
         <activity android:name=".PaymentTypeScreen" />
         <activity android:name=".PortfolioScreen" />
         <activity android:name=".RegisterScreen" />
         <activity android:name=".ReviewScreen" />
+        <activity android:name=".ViewReviewsScreen" />
         <activity
             android:name=".LoginScreen"
             android:exported="true">

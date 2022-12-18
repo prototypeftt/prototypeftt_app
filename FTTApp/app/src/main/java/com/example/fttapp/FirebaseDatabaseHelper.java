@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
@@ -12,9 +14,11 @@ import java.util.List;
 
 public class FirebaseDatabaseHelper {
     private Query mReference;
+    private DatabaseReference reviewMarkReference;
     private List<Broker> brokers = new ArrayList<>();
     private List<Asset> assets = new ArrayList<>();
     private List<Message> messages = new ArrayList<>();
+    private List<Review> reviews = new ArrayList<>();
 
     public interface DataStatusBrokers {
         void DataIsLoaded(List<Broker> brokers, List<String> brokerKeys);
@@ -26,6 +30,10 @@ public class FirebaseDatabaseHelper {
 
     public interface DataStatusMessages {
         void DataIsLoaded(List<Message> messages, List<String> messageKeys);
+    }
+
+    public interface DataStatusReviews {
+        void DataIsLoaded(List<Review> reviews, List<String> reviewKeys);
     }
 
     public FirebaseDatabaseHelper(Query mReference){
@@ -87,6 +95,38 @@ public class FirebaseDatabaseHelper {
                     messages.add(message);
                 }
                 dataStatus.DataIsLoaded(messages, messageKeys);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void readReviews(final DataStatusReviews dataStatus){
+        mReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                reviews.clear();
+                float reviewMarks = 0;
+                float markAverage = 0;
+                int counter = 0;
+                List<String> reviewKeys = new ArrayList<>();
+                for(DataSnapshot keyNode:snapshot.getChildren()){
+                    reviewKeys.add(keyNode.getKey());
+                    Review review = keyNode.getValue(Review.class);
+                    reviewMarks += Float.valueOf(review.getReviewMarks());
+                    counter++;
+                    reviews.add(review);
+                }
+                if(counter > 0){
+                    markAverage = reviewMarks / counter;
+                    String markAverageString = String.format("%.02f", markAverage);
+                    reviewMarkReference = FirebaseDatabase.getInstance().getReference("reviews");
+                    reviewMarkReference.child("mark").setValue(markAverageString);
+                }
+                dataStatus.DataIsLoaded(reviews, reviewKeys);
             }
 
             @Override

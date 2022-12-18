@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,7 +48,8 @@ public class ContactBrokerScreen extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     String userName = snapshot.child("name").getValue(String.class);
-                    changeActivity(userUid, brokerUid, brokerPhone, userName);
+                    String userBroker = snapshot.child("broker").getValue(String.class);
+                    changeActivity(userUid, brokerUid, brokerPhone, userBroker, userName);
                 }
             }
 
@@ -61,7 +63,7 @@ public class ContactBrokerScreen extends AppCompatActivity {
         message = new Message();
     }
 
-    private void changeActivity(String userUid, String brokerUid, String brokerPhone, String userName){
+    private void changeActivity(String userUid, String brokerUid, String brokerPhone, String userBroker, String userName){
 
         Button SendQueryButton = (Button) findViewById(R.id.SendQueryButton);
         Button CallBroker = (Button) findViewById(R.id.callBrokerButton);
@@ -81,9 +83,11 @@ public class ContactBrokerScreen extends AppCompatActivity {
         CallBroker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:" + brokerPhone));
-                startActivity(intent);
+                if(userBroker.equals(brokerUid)){
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:" + brokerPhone));
+                    startActivity(intent);
+                }
             }
         });
     }

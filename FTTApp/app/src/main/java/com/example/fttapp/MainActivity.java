@@ -1,14 +1,12 @@
 package com.example.fttapp;
 
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -16,8 +14,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         Button HelpButton = (Button) findViewById(R.id.HelpButton);
         Button RateButton = (Button) findViewById(R.id.RateButton);
         Button LogoutButton = (Button) findViewById(R.id.LogoutButton);
+        Button ViewReviewsButton = (Button) findViewById(R.id.viewReviewsButton);
         BrokerSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,13 +81,19 @@ public class MainActivity extends AppCompatActivity {
         HelpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, ChatbotScreen.class));
+                startActivity(new Intent(MainActivity.this, HelpScreen.class));
             }
         });
         RateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, ReviewScreen.class));
+            }
+        });
+        ViewReviewsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, ViewReviewsScreen.class));
             }
         });
         LogoutButton.setOnClickListener(new View.OnClickListener() {

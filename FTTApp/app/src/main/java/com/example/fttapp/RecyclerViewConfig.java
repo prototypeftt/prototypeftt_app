@@ -18,6 +18,7 @@ public class RecyclerViewConfig {
     private BrokerAdapter mBrokerAdapter;
     private AssetAdapter mAssetAdapter;
     private MessageAdapter mMessageAdapter;
+    private ReviewAdapter mReviewAdapter;
 
     public void setConfigBroker(RecyclerView recyclerView, Context context, List<Broker> brokers, List<String> brokerKeys){
         mContext = context;
@@ -38,6 +39,13 @@ public class RecyclerViewConfig {
         mMessageAdapter = new MessageAdapter(messages, messageKeys);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(mMessageAdapter);
+    }
+
+    public void setConfigReview(RecyclerView recyclerView, Context context, List<Review> reviews, List<String> reviewKeys){
+        mContext = context;
+        mReviewAdapter = new ReviewAdapter(reviews, reviewKeys);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setAdapter(mReviewAdapter);
     }
 
     class BrokerItemView extends RecyclerView.ViewHolder {
@@ -106,6 +114,26 @@ public class RecyclerViewConfig {
         public void bind(Message message, String key){
             mMessagerName.setText(message.getName());
             mMessagerText.setText(message.getMessage());
+            this.key = key;
+        }
+    }
+
+    class ReviewItemView extends RecyclerView.ViewHolder {
+        private TextView mReviewMark, mReviewText;
+
+        private String key;
+
+        public ReviewItemView(ViewGroup parent){
+            super(LayoutInflater.from(mContext).
+                    inflate(R.layout.aux_reviews_recycler, parent, false));
+
+            mReviewMark = (TextView) itemView.findViewById((R.id.marksGiven));
+            mReviewText = (TextView) itemView.findViewById((R.id.reviewText));
+        }
+
+        public void bind(Review review, String key){
+            mReviewMark.setText(review.getReviewMarks());
+            mReviewText.setText(review.getReviewText());
             this.key = key;
         }
     }
@@ -185,6 +213,32 @@ public class RecyclerViewConfig {
         @Override
         public int getItemCount() {
             return messageList.size();
+        }
+    }
+
+    class ReviewAdapter extends RecyclerView.Adapter<ReviewItemView>{
+        private List<Review> reviewList;
+        private List<String> keysList;
+
+        public ReviewAdapter(List<Review> reviewList, List<String> keysList){
+            this.reviewList = reviewList;
+            this.keysList = keysList;
+        }
+
+        @NonNull
+        @Override
+        public ReviewItemView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new ReviewItemView(parent);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ReviewItemView holder, int position) {
+            holder.bind(reviewList.get(position), keysList.get(position));
+        }
+
+        @Override
+        public int getItemCount() {
+            return reviewList.size();
         }
     }
 }
