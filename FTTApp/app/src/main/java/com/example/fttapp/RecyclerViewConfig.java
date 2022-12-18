@@ -17,6 +17,8 @@ public class RecyclerViewConfig {
     private Context mContext;
     private BrokerAdapter mBrokerAdapter;
     private AssetAdapter mAssetAdapter;
+    private MyStockAdapter mStockAdapter;
+    private MyCryptoAdapter myCryptoAdapter;
     private MessageAdapter mMessageAdapter;
     private ReviewAdapter mReviewAdapter;
 
@@ -32,6 +34,20 @@ public class RecyclerViewConfig {
         mAssetAdapter = new AssetAdapter(assets, assetKeys);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(mAssetAdapter);
+    }
+
+    public void setConfigMyStock(RecyclerView recyclerView, Context context, List<Asset> stocks, List<String> stockKeys){
+        mContext = context;
+        mStockAdapter = new MyStockAdapter(stocks, stockKeys);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setAdapter(mStockAdapter);
+    }
+
+    public void setConfigMyCrypto(RecyclerView recyclerView, Context context, List<Asset> cryptos, List<String> cryptoKeys){
+        mContext = context;
+        myCryptoAdapter = new MyCryptoAdapter(cryptos, cryptoKeys);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setAdapter(myCryptoAdapter);
     }
 
     public void setConfigMessage(RecyclerView recyclerView, Context context, List<Message> messages, List<String> messageKeys){
@@ -88,6 +104,60 @@ public class RecyclerViewConfig {
         public void bind(Asset asset, String key){
             mAssetName.setText(asset.getAssetName());
             mAssetPrediction.setText(asset.getAssetPrediction());
+            mAssetPrice.setText(asset.getClosePrice());
+            this.key = key;
+            mAssetName.setOnClickListener(view -> {
+                Intent intent = new Intent(mContext, AssetScreen.class);
+                intent.putExtra("asset", asset);
+                mContext.startActivity(intent);
+            });
+        }
+    }
+
+    class MyStockItemView extends RecyclerView.ViewHolder {
+        private TextView mAssetName, mAssetQuantity, mAssetPrice;
+
+        private String key;
+
+        public MyStockItemView(ViewGroup parent){
+            super(LayoutInflater.from(mContext).
+                    inflate(R.layout.aux_stock_recycler, parent, false));
+
+            mAssetName = (TextView) itemView.findViewById((R.id.stockName));
+            mAssetQuantity = (TextView) itemView.findViewById((R.id.stockQuantity));
+            mAssetPrice = (TextView) itemView.findViewById((R.id.stockPrice));
+        }
+
+        public void bind(Asset asset, String key){
+            mAssetName.setText(asset.getAssetName());
+            mAssetQuantity.setText(asset.getQty());
+            mAssetPrice.setText(asset.getClosePrice());
+            this.key = key;
+            mAssetName.setOnClickListener(view -> {
+                Intent intent = new Intent(mContext, AssetScreen.class);
+                intent.putExtra("asset", asset);
+                mContext.startActivity(intent);
+            });
+        }
+    }
+
+    class MyCryptoItemView extends RecyclerView.ViewHolder {
+        private TextView mAssetName, mAssetQuantity, mAssetPrice;
+
+        private String key;
+
+        public MyCryptoItemView(ViewGroup parent){
+            super(LayoutInflater.from(mContext).
+                    inflate(R.layout.aux_crypto_recycler, parent, false));
+
+            mAssetName = (TextView) itemView.findViewById((R.id.cryptoName));
+            mAssetQuantity = (TextView) itemView.findViewById((R.id.cryptoQuantity));
+            mAssetPrice = (TextView) itemView.findViewById((R.id.cryptoPrice));
+        }
+
+        public void bind(Asset asset, String key){
+            mAssetName.setText(asset.getAssetName());
+            mAssetQuantity.setText(asset.getQty());
             mAssetPrice.setText(asset.getClosePrice());
             this.key = key;
             mAssetName.setOnClickListener(view -> {
@@ -187,6 +257,58 @@ public class RecyclerViewConfig {
         @Override
         public int getItemCount() {
             return assetList.size();
+        }
+    }
+
+    class MyStockAdapter extends RecyclerView.Adapter<MyStockItemView>{
+        private List<Asset> stockList;
+        private List<String> keysList;
+
+        public MyStockAdapter(List<Asset> stockList, List<String> keysList){
+            this.stockList = stockList;
+            this.keysList = keysList;
+        }
+
+        @NonNull
+        @Override
+        public MyStockItemView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new MyStockItemView(parent);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull MyStockItemView holder, int position) {
+            holder.bind(stockList.get(position), keysList.get(position));
+        }
+
+        @Override
+        public int getItemCount() {
+            return stockList.size();
+        }
+    }
+
+    class MyCryptoAdapter extends RecyclerView.Adapter<MyCryptoItemView>{
+        private List<Asset> cryptoList;
+        private List<String> keysList;
+
+        public MyCryptoAdapter(List<Asset> stockList, List<String> keysList){
+            this.cryptoList = stockList;
+            this.keysList = keysList;
+        }
+
+        @NonNull
+        @Override
+        public MyCryptoItemView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new MyCryptoItemView(parent);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull MyCryptoItemView holder, int position) {
+            holder.bind(cryptoList.get(position), keysList.get(position));
+        }
+
+        @Override
+        public int getItemCount() {
+            return cryptoList.size();
         }
     }
 
