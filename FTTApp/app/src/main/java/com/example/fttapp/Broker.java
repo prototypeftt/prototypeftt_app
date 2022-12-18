@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Broker implements Parcelable {
-    private String name, institution, premium, uid;
+    private String name, institution, premium, uid, phone;
 
     public Broker() {
     }
@@ -13,11 +13,12 @@ public class Broker implements Parcelable {
         this.name = name;
     }
 
-    public Broker(String name, String institution, String premium, String uid) {
+    public Broker(String name, String institution, String premium, String uid, String phone) {
         this.name = name;
         this.institution = institution;
         this.premium = premium;
         this.uid = uid;
+        this.phone = phone;
     }
 
     protected Broker(Parcel in) {
@@ -25,6 +26,7 @@ public class Broker implements Parcelable {
         institution = in.readString();
         premium = in.readString();
         uid = in.readString();
+        phone = in.readString();
     }
 
     public static final Creator<Broker> CREATOR = new Creator<Broker>() {
@@ -55,6 +57,10 @@ public class Broker implements Parcelable {
         this.uid = uid;
     }
 
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public String getName() {
         return name;
     }
@@ -71,6 +77,10 @@ public class Broker implements Parcelable {
         return uid;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -82,5 +92,6 @@ public class Broker implements Parcelable {
         parcel.writeString(institution);
         parcel.writeString(premium);
         parcel.writeString(uid);
+        parcel.writeString(phone);
     }
 }

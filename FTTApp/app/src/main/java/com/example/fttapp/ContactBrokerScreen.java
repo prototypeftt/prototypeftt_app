@@ -1,6 +1,7 @@
 package com.example.fttapp;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +36,7 @@ public class ContactBrokerScreen extends AppCompatActivity {
         Intent intent = getIntent();
         Broker broker = intent.getParcelableExtra("broker");
         String brokerUid = broker.getUid();
+        String brokerPhone = broker.getPhone();
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
@@ -45,7 +47,7 @@ public class ContactBrokerScreen extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     String userName = snapshot.child("name").getValue(String.class);
-                    changeActivity(userUid, brokerUid, userName);
+                    changeActivity(userUid, brokerUid, brokerPhone, userName);
                 }
             }
 
@@ -59,9 +61,10 @@ public class ContactBrokerScreen extends AppCompatActivity {
         message = new Message();
     }
 
-    private void changeActivity(String userUid, String brokerUid, String userName){
+    private void changeActivity(String userUid, String brokerUid, String brokerPhone, String userName){
 
         Button SendQueryButton = (Button) findViewById(R.id.SendQueryButton);
+        Button CallBroker = (Button) findViewById(R.id.callBrokerButton);
         SendQueryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,6 +76,14 @@ public class ContactBrokerScreen extends AppCompatActivity {
                 String keyId = messageReference.push().getKey();
                 messageReference.child(brokerUid).child(keyId).setValue(message);
                 startActivity(new Intent(ContactBrokerScreen.this, MainActivity.class));
+            }
+        });
+        CallBroker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + brokerPhone));
+                startActivity(intent);
             }
         });
     }
