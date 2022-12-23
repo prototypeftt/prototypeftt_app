@@ -44,13 +44,8 @@ public class RegisterScreen extends AppCompatActivity {
     }
 
     private void changeActivity(){
-        Button RegisterButton = (Button) findViewById(R.id.RegisterButton);
-        RegisterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createUser();
-            }
-        });
+        Button RegisterButton = findViewById(R.id.RegisterButton);
+        RegisterButton.setOnClickListener(view -> createUser());
     }
 
     private void createUser(){
@@ -74,22 +69,22 @@ public class RegisterScreen extends AppCompatActivity {
         }else if(checkPassword.isEmpty()){
             EditPasswordCheck.setError("Password check is empty or incorrect");
             EditPasswordCheck.requestFocus();
+        }else if(!checkPassword.equals(password)){
+            EditPasswordCheck.setError("Password check is not equal to Password");
+            EditPasswordCheck.requestFocus();
         }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             EditPersonalEmail.setError("Enter a valid email");
             EditPersonalEmail.requestFocus();
         }else{
-            mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
-                        String userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        client.setName(fullName);
-                        clientReference.child(userUid).setValue(client);
-                        Toast.makeText(RegisterScreen.this, "User registered successfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(RegisterScreen.this, LoginScreen.class));
-                    }else{
-                        Toast.makeText(RegisterScreen.this, "Registration error" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
+            mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
+                if(task.isSuccessful()){
+                    String userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    client.setName(fullName);
+                    clientReference.child(userUid).setValue(client);
+                    Toast.makeText(RegisterScreen.this, "User registered successfully", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(RegisterScreen.this, LoginScreen.class));
+                }else{
+                    Toast.makeText(RegisterScreen.this, "Registration error" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }

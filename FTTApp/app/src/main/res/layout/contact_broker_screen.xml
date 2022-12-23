@@ -7,10 +7,28 @@
     android:background="#8000BCD4"
     tools:context=".ContactBrokerScreen">
 
+    <TextView
+        android:id="@+id/contactBrokerText1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:text="Enter your query:"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
     <EditText
         android:id="@+id/myMessageText"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="32dp"
@@ -21,14 +39,13 @@
         android:inputType="textMultiLine|textEmailSubject"
         android:selectAllOnFocus="false"
         android:singleLine="false"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas hendrerit eleifend libero at ornare. Aliquam et odio sit amet diam fermentum tempus quis malesuada arcu. Cras posuere finibus fermentum. Cras eget dolor risus. Duis mauris tortor, dictum sed ullamcorper at, efficitur sit amet elit. Vivamus tincidunt varius sodales. Proin in enim eros. In lacinia tellus lacus, non pulvinar diam ornare a."
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/SendQueryButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.166" />
+        app:layout_constraintTop_toBottomOf="@+id/contactBrokerText1"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/callBrokerButton"
@@ -46,7 +63,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SendQueryButton"
-        app:layout_constraintVertical_bias="0.034" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/SendQueryButton"
@@ -64,7 +81,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myMessageText"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.896" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

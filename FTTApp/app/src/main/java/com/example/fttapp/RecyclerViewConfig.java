@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -96,9 +95,9 @@ public class RecyclerViewConfig {
             super(LayoutInflater.from(mContext).
                     inflate(R.layout.aux_assets_recycler, parent, false));
 
-            mAssetName = (TextView) itemView.findViewById((R.id.assetName));
-            mAssetPrediction = (TextView) itemView.findViewById((R.id.assetPrediction));
-            mAssetPrice = (TextView) itemView.findViewById((R.id.assetPrice));
+            mAssetName = itemView.findViewById((R.id.assetName));
+            mAssetPrediction = itemView.findViewById((R.id.assetPrediction));
+            mAssetPrice = itemView.findViewById((R.id.assetPrice));
         }
 
         public void bind(Asset asset, String key){
@@ -123,9 +122,9 @@ public class RecyclerViewConfig {
             super(LayoutInflater.from(mContext).
                     inflate(R.layout.aux_stock_recycler, parent, false));
 
-            mAssetName = (TextView) itemView.findViewById((R.id.stockName));
-            mAssetQuantity = (TextView) itemView.findViewById((R.id.stockQuantity));
-            mAssetPrice = (TextView) itemView.findViewById((R.id.stockPrice));
+            mAssetName = itemView.findViewById((R.id.stockName));
+            mAssetQuantity = itemView.findViewById((R.id.stockQuantity));
+            mAssetPrice = itemView.findViewById((R.id.stockPrice));
         }
 
         public void bind(Asset asset, String key){
@@ -150,9 +149,9 @@ public class RecyclerViewConfig {
             super(LayoutInflater.from(mContext).
                     inflate(R.layout.aux_crypto_recycler, parent, false));
 
-            mAssetName = (TextView) itemView.findViewById((R.id.cryptoName));
-            mAssetQuantity = (TextView) itemView.findViewById((R.id.cryptoQuantity));
-            mAssetPrice = (TextView) itemView.findViewById((R.id.cryptoPrice));
+            mAssetName = itemView.findViewById((R.id.cryptoName));
+            mAssetQuantity = itemView.findViewById((R.id.cryptoQuantity));
+            mAssetPrice = itemView.findViewById((R.id.cryptoPrice));
         }
 
         public void bind(Asset asset, String key){
@@ -177,8 +176,8 @@ public class RecyclerViewConfig {
             super(LayoutInflater.from(mContext).
                     inflate(R.layout.aux_messages_recycler, parent, false));
 
-            mMessagerName = (TextView) itemView.findViewById((R.id.messageSenderName));
-            mMessagerText = (TextView) itemView.findViewById((R.id.messageSenderText));
+            mMessagerName = itemView.findViewById((R.id.messageSenderName));
+            mMessagerText = itemView.findViewById((R.id.messageSenderText));
         }
 
         public void bind(Message message, String key){
@@ -197,8 +196,8 @@ public class RecyclerViewConfig {
             super(LayoutInflater.from(mContext).
                     inflate(R.layout.aux_reviews_recycler, parent, false));
 
-            mReviewMark = (TextView) itemView.findViewById((R.id.marksGiven));
-            mReviewText = (TextView) itemView.findViewById((R.id.reviewText));
+            mReviewMark = itemView.findViewById((R.id.marksGiven));
+            mReviewText = itemView.findViewById((R.id.reviewText));
         }
 
         public void bind(Review review, String key){
