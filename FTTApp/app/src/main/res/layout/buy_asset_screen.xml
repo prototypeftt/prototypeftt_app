@@ -18,7 +18,7 @@
         android:layout_marginRight="32dp"
         android:layout_marginBottom="32dp"
         android:background="#03A9F4"
-        android:text="How much do you want to buy? (in €)"
+        android:text="How much do you want to buy?"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +28,7 @@
         app:layout_constraintVertical_bias="0.274" />
 
     <EditText
-        android:id="@+id/MoneyToSpend"
+        android:id="@+id/AmountToBuy"
         android:layout_width="0dp"
         android:layout_height="86dp"
         android:layout_marginStart="32dp"
@@ -40,7 +40,6 @@
         android:ems="10"
         android:gravity="center"
         android:inputType="textPersonName"
-        android:text="86€"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,12 +58,12 @@
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginBottom="32dp"
-        android:text="Select payment type"
+        android:text="Pay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MoneyToSpend"
+        app:layout_constraintTop_toBottomOf="@+id/AmountToBuy"
         app:layout_constraintVertical_bias="0.437" />
 
     <TextView

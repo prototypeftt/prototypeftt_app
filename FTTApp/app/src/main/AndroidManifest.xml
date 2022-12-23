@@ -15,6 +15,13 @@
         android:theme="@style/Theme.FTTApp"
         tools:targetApi="31">
         <activity
+            android:name=".PaymentDetails"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ViewMessagesScreen"
             android:exported="false">
             <meta-data
@@ -29,7 +36,8 @@
         <activity android:name=".HelpScreen" />
         <activity android:name=".ContactBrokerScreen" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".PaymentTypeScreen" />
+        <activity android:name=".PaypalPaymentScreen" />
+        <activity android:name=".PaypalPaymentScreenAsset" />
         <activity android:name=".PortfolioScreen" />
         <activity android:name=".RegisterScreen" />
         <activity android:name=".ReviewScreen" />

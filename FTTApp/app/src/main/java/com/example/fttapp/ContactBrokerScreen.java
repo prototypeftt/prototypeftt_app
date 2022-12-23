@@ -3,10 +3,8 @@ package com.example.fttapp;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -65,29 +63,23 @@ public class ContactBrokerScreen extends AppCompatActivity {
 
     private void changeActivity(String userUid, String brokerUid, String brokerPhone, String userBroker, String userName){
 
-        Button SendQueryButton = (Button) findViewById(R.id.SendQueryButton);
-        Button CallBroker = (Button) findViewById(R.id.callBrokerButton);
-        SendQueryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String messageText = EditMessage.getText().toString();
-                message.setMessage(messageText);
-                message.setUuid(userUid);
-                message.setName(userName);
+        Button SendQueryButton = findViewById(R.id.SendQueryButton);
+        Button CallBroker = findViewById(R.id.callBrokerButton);
+        SendQueryButton.setOnClickListener(view -> {
+            String messageText = EditMessage.getText().toString();
+            message.setMessage(messageText);
+            message.setUuid(userUid);
+            message.setName(userName);
 
-                String keyId = messageReference.push().getKey();
-                messageReference.child(brokerUid).child(keyId).setValue(message);
-                startActivity(new Intent(ContactBrokerScreen.this, MainActivity.class));
-            }
+            String keyId = messageReference.push().getKey();
+            messageReference.child(brokerUid).child(keyId).setValue(message);
+            startActivity(new Intent(ContactBrokerScreen.this, MainActivity.class));
         });
-        CallBroker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(userBroker.equals(brokerUid)){
-                    Intent intent = new Intent(Intent.ACTION_DIAL);
-                    intent.setData(Uri.parse("tel:" + brokerPhone));
-                    startActivity(intent);
-                }
+        CallBroker.setOnClickListener(view -> {
+            if(userBroker.equals(brokerUid)){
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + brokerPhone));
+                startActivity(intent);
             }
         });
     }

@@ -72,7 +72,7 @@ public class RecyclerViewConfig {
             super(LayoutInflater.from(mContext).
                     inflate(R.layout.aux_brokers_recycler, parent, false));
 
-            mName = (TextView) itemView.findViewById((R.id.brokerName));
+            mName = itemView.findViewById((R.id.brokerName));
         }
 
         public void bind(Broker broker, String key){

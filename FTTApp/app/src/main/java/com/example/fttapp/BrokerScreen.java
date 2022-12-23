@@ -16,7 +16,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class BrokerScreen extends AppCompatActivity {
@@ -61,15 +60,12 @@ public class BrokerScreen extends AppCompatActivity {
     }
 
     private void changeActivity(String clientNumber, String userId, Broker broker){
-        Button ContactBroker = (Button) findViewById(R.id.contactBrokerButton);
-        Button hireBroker = (Button) findViewById(R.id.hireBrokerButton);
-        ContactBroker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(BrokerScreen.this, ContactBrokerScreen.class);
-                intent.putExtra("broker", broker);
-                startActivity(intent);
-            }
+        Button ContactBroker = findViewById(R.id.contactBrokerButton);
+        Button hireBroker = findViewById(R.id.hireBrokerButton);
+        ContactBroker.setOnClickListener(view -> {
+            Intent intent = new Intent(BrokerScreen.this, ContactBrokerScreen.class);
+            intent.putExtra("broker", broker);
+            startActivity(intent);
         });
         hireBroker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +74,9 @@ public class BrokerScreen extends AppCompatActivity {
                 mDatabaseC = FirebaseDatabase.getInstance().getReference("clients/" + userId);
                 mDatabaseC.child("broker").setValue(broker.getUid());
                 Toast.makeText(BrokerScreen.this, "Broker selected successfully", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(BrokerScreen.this, PaypalPaymentScreen.class);
+                intent.putExtra("broker", broker);
+                startActivity(intent);
             }
         });
     }
